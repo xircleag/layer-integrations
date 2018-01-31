@@ -1,0 +1,17 @@
+{
+  "email-fallback": {
+    "description": "Email Fallback Integration",
+    "github": "layerhq/email-fallback-integration",
+    "providers": ["aws", "azure"]
+  },
+  "url-enrichment": {
+    "description": "URL Enrichment Integration",
+    "github": "layerhq/url-enrichment-integration",
+    "providers": ["aws", "azure"]
+  },
+  "message-responses": {
+    "description": "Message Responses Integration",
+    "github": "layerhq/message-responses-integration",
+    "providers": ["aws", "azure"]
+  }
+}

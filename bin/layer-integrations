@@ -1,0 +1,78 @@
+#!/usr/bin/env node
+'use strict'
+
+const program = require('commander')
+
+const install = require('../src/install')
+const utils = require('../src/utils')
+const pkg = require('../package.json')
+
+program
+  .version(pkg.version)
+  .description(pkg.description)
+
+program
+  .command('install <integration-name>')
+  .description('Install Layer Integration by specifying a name and cloud provider')
+  .option('-p, --provider [provider]', 'serverless cloud provider (defaults to aws)')
+  .action((name, options) => {
+    install.integration(name, options.provider || 'aws')
+      .then(() => {
+        console.log()
+        console.log('  Installation: DONE')
+        console.log()
+        console.log(`  Navigate into integration directory: cd ${name}`)
+        console.log(`  And run: ${pkg.name} deploy`)
+        console.log()
+        process.exit()
+      })
+      .catch((err) => {
+        console.log()
+        console.error('  Installation:', err.message)
+        console.log()
+        process.exit(1)
+      })
+  })
+
+program
+  .command('deploy')
+  .description('Deploy Layer Integration from inside directory')
+  .option('-p, --pagerduty', 'enable PagerDuty alerting')
+  .action((options) => {
+    utils.checkRequirements()
+
+    const prompt = require('../src/prompt')
+    prompt.checkExisting()
+      .then((existing) => {
+        if (existing) return prompt.deploy()
+
+        return prompt.login()
+          .then(prompt.selectOrganization)
+          .then(prompt.selectApplication)
+          .then(prompt.selectApplicationEnvironment)
+          .then(prompt.getAppID)
+          .then(prompt.webhookSecret)
+          .then(prompt.inputs)
+          .then(() => {
+            if (options.pagerduty) return prompt.pagerduty()
+            else Promise.resolve()
+          })
+          .then(prompt.apiToken)
+          .then(prompt.writeConfig)
+          .then(prompt.deploy)
+      })
+      .catch((err) => {
+        console.log()
+        if (err.code === 'ECONNABORTED') return console.error('  Error', err.message)
+        if (err.response) return console.error('  Error', err.response.data)
+        console.error('  Error:', err.message)
+      })
+  })
+
+program
+  .option('-l, --list', 'list integrations available to install')
+
+program.parse(process.argv)
+
+if (program.list) install.list()
+else if (!program.args.length) program.help()
