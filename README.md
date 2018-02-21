@@ -1,4 +1,5 @@
 # Layer Integrations CLI
+[![npm version](http://img.shields.io/npm/v/layer-integrations.svg)](https://npmjs.org/package/layer-integrations)
 
 This is a command line tool that is designed to be used with Layer [Integration Development Kit](https://preview-docs.layer.com/reference/integrations/framework) (IDK). It is used to install and deploy [Serverless](https://serverless.com/) integrations into your cloud provider environment.
 
@@ -39,9 +40,20 @@ To deploy installed integration you need to run the following command from the i
 
 ### Monitoring
 
-For production ready integrations we recommend enabling [PagerDuty](https://www.pagerduty.com/) by providing `--pagerduty` option.
+For production ready versions we recommend enabling PagerDuty or Sentry. You can also enable both.
+
+#### PagerDuty
+
+Enable [PagerDuty](https://www.pagerduty.com/) by providing `--pagerduty` option.
 
     layer-integrations deploy --pagerduty
 
 This will prompt you to specify additional PagerDuty credentials, API key and Integration key.
 
+#### Sentry
+
+Enable [Sentry](https://sentry.io) by providing `--sentry` option.
+
+    layer-integrations deploy --sentry
+
+This will prompt you to specify the Sentry DSN which you can get from your Sentry dashboard under Client Keys.

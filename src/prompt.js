@@ -187,8 +187,22 @@ exports.pagerduty = () => {
       validate: validation.required
     }
   ])
-  .then((pd) => {
-    state.config.pagerduty = pd
+  .then((input) => {
+    state.config.pagerduty = input
+  })
+}
+
+exports.sentry = () => {
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'dsn',
+      message: 'Sentry DSN',
+      validate: validation.required
+    }
+  ])
+  .then((input) => {
+    state.config.sentry = input
   })
 }
 

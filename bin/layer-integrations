@@ -38,6 +38,7 @@ program
   .command('deploy')
   .description('Deploy Layer Integration from inside directory')
   .option('-p, --pagerduty', 'enable PagerDuty alerting')
+  .option('-s, --sentry', 'enable Sentry monitoring')
   .action((options) => {
     utils.checkRequirements()
 
@@ -55,6 +56,10 @@ program
           .then(prompt.inputs)
           .then(() => {
             if (options.pagerduty) return prompt.pagerduty()
+            else Promise.resolve()
+          })
+          .then(() => {
+            if (options.sentry) return prompt.sentry()
             else Promise.resolve()
           })
           .then(prompt.apiToken)
