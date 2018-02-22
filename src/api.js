@@ -20,7 +20,7 @@ const dashboard = axios.create({
 const webhooks = axios.create({
   baseURL: process.env.LAYER_API || 'https://api.layer.com/',
   headers: {
-    'accept': 'application/vnd.layer.webhooks+json; version=3.0'
+    'accept': 'application/vnd.layer.webhooks+json; version=2.0'
   },
   timeout: 6000
 })
@@ -91,7 +91,7 @@ function createWebhook (secret, target) {
   const payload = {
     target_url: target,
     events: manifest.webhook.events,
-    version: '3.0',
+    version: '2.0',
     secret
   }
   return webhooks.post(`apps/${toUUID(state.config.app_id)}/webhooks`, payload)
