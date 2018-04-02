@@ -1,7 +1,7 @@
 # Layer Integrations CLI
 [![npm version](http://img.shields.io/npm/v/layer-integrations.svg)](https://npmjs.org/package/layer-integrations)
 
-This is a command line tool that is designed to be used with Layer [Integration Development Kit](https://preview-docs.layer.com/reference/integrations/framework) (IDK). It is used to install and deploy [Serverless](https://serverless.com/) integrations into your cloud provider environment.
+This is a command line tool that is designed to be used with Layer [Integration Development Kit](https://docs.layer.com/reference/integrations/framework) (IDK). It is used to install and deploy [Serverless](https://serverless.com/) integrations into your cloud provider environment.
 
 ## Setup
 

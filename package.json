@@ -1,6 +1,6 @@
 {
   "name": "layer-integrations",
-  "version": "1.0.0-pre1.1",
+  "version": "1.0.0",
   "description": "Layer Integration Development Kit command line tool",
   "author": "Layer Developers <support@layer.com>",
   "license": "Apache-2.0",
